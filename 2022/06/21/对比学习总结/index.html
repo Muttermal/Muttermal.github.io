@@ -240,7 +240,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.6k 字
+          4.1k 字
         
       </span>
     
@@ -251,7 +251,7 @@
         
         
         
-          22 分钟
+          34 分钟
         
       </span>
     
@@ -310,10 +310,13 @@
             
               <div class="markdown-body">
                 
-                <h2 id="对比学习总结">对比学习总结</h2>
-<h3 id="cv">1. CV</h3>
-<h4 id="百花齐放">百花齐放</h4>
-<p><strong><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1805.01978.pdf">InstDisc</a></strong></p>
+                <h1 id="对比学习总结1">对比学习总结<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="本文CV部分总结自李沐老师的[视频](https://www.bilibili.com/video/BV19S4y1M7hm?spm_id_from=333.999.0.0)和[github](https://github.com/mli/paper-reading#contrastive_learning)。">[1]</span></a></sup></h1>
+<p align="center">
+<a><img src="https://img.shields.io/badge/Muttermal-对比学习-ff69b4" srcset="/img/loading.gif" lazyload></a>
+</p>
+<h2 id="cv">1.CV</h2>
+<h3 id="百花齐放">百花齐放</h3>
+<h4 id="instdisc"><strong><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1805.01978.pdf">InstDisc</a></strong></h4>
 <p>提出了<strong>个体判别任务</strong>和<strong>memory
 bank</strong>（字典形式）。正样本为自己，负样本为所有其他图片，负样本的特征存放在memory
 bank中。loss使用的是NCE loss。</p>
@@ -332,20 +335,20 @@ loss的变体。</p>
 <img src="/2022/06/21/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/image-20220608105200188.png" srcset="/img/loading.gif" lazyload alt="InvaSpread">
 <figcaption aria-hidden="true">InvaSpread</figcaption>
 </figure>
-<p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1807.03748.pdf">CPC</a></p>
+<h4 id="cpc"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1807.03748.pdf">CPC</a></h4>
 <p>选取了预测型的任务来做对比学习，对于模型的预测结果(z_t+1)来说，正样本为未来时刻的输入（x_t+1)通过编码器的输出，负样本为任意输入通过编码器的输出。</p>
 <figure>
 <img src="/2022/06/21/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/image-20220608105544159.png" srcset="/img/loading.gif" lazyload alt="CPC">
 <figcaption aria-hidden="true">CPC</figcaption>
 </figure>
-<p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1906.05849.pdf">CMC</a></p>
+<h4 id="cmc"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1906.05849.pdf">CMC</a></h4>
 <p>多视角的对比学习，目的是增大所有视角之间的互信息，对于某个物体来说，正样本为其在其他视角（模态）下的信息，负样本为其他与物体</p>
 <figure>
 <img src="/2022/06/21/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/image-20220608110638390.png" srcset="/img/loading.gif" lazyload alt="CMC">
 <figcaption aria-hidden="true">CMC</figcaption>
 </figure>
-<h4 id="cv双雄">CV双雄</h4>
-<p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1911.05722.pdf">MoCov1</a></p>
+<h3 id="cv双雄">CV双雄</h3>
+<h4 id="mocov1"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1911.05722.pdf">MoCov1</a></h4>
 <p>把之前对比学习的方法都归纳成一个字典查询的问题，思路和<strong><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1805.01978.pdf">InstDisc</a></strong>很类似。文章中提出了两个东西：<strong>队列</strong>和<strong>动量编码器</strong>，队列用来存储负样本的特征，动量编码器用来动态更新encoder，而不是动量的去更新负样本的特征。loss用的是info
 NCE loss。</p>
 <figure>
@@ -353,7 +356,7 @@ NCE loss。</p>
 <figcaption aria-hidden="true">MoCov1</figcaption>
 </figure>
 <p>创新点：<strong>动量编码器</strong>，后续对比学习的工作还在沿用这个skill。</p>
-<p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2002.05709.pdf">SimCLRv1</a></p>
+<h4 id="simclrv1"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2002.05709.pdf">SimCLRv1</a></h4>
 <p>正负样本的构造方式与<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1904.03436.pdf">InvaSpread</a>相同，正样本为数据增强后的样本，负样本为batch里其他及其数据增强后的样本，simclr与InvaSpread的区别在于使用了更多的数据增强方式，在encoder后面增加了一个g函数(全连接层)，用了更大的batch
 size（4096）。</p>
 <figure>
@@ -361,13 +364,13 @@ size（4096）。</p>
 <figcaption aria-hidden="true">SimCLRv1</figcaption>
 </figure>
 <p>创新点：在编码器后面加了一个mlp层（projector），效果有了很大的提升。</p>
-<p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2003.04297.pdf">MoCov2</a></p>
+<h4 id="mocov2"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2003.04297.pdf">MoCov2</a></h4>
 <p>在原来的moco上面做了一些简单的改动，借鉴了simclr里面的一些技术，使用了更多的数据增强方式，以及在编码器后面加了一个mlp层，同时模型的训练epoch数也增加了（由200增加到800）。通常来说，无监督模型或者大型模型，训练越久模型效果越好。</p>
 <figure>
 <img src="/2022/06/21/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/image-20220608113045353.png" srcset="/img/loading.gif" lazyload alt="MoCov2">
 <figcaption aria-hidden="true">MoCov2</figcaption>
 </figure>
-<p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2006.10029.pdf">SimCLRv2</a></p>
+<h4 id="simclrv2"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2006.10029.pdf">SimCLRv2</a></h4>
 <p>文章主要在讲大模型如何去做半监督学习。相比于simclr
 v1，论文的主要改动在于：换了一个更大的网络，实验了不同深度的mlp层(projection
 head)，使用了动量编码器。</p>
@@ -383,8 +386,8 @@ truth <span class="math inline">\(Q_1,Q_2\)</span>，对<span class="math inline
 <figcaption aria-hidden="true">SWaV</figcaption>
 </figure>
 <p>skill: Multi-crop</p>
-<h4 id="不用负样本">不用负样本</h4>
-<p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2006.07733.pdf">BYOL</a></p>
+<h3 id="不用负样本">不用负样本</h3>
+<h4 id="byol"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2006.07733.pdf">BYOL</a></h4>
 <p>样本x通过两次不同的数据增强得到两个样本<span class="math inline">\(v,v&#39;\)</span>，再通过两个不同的编码器<span class="math inline">\(f(\theta)\)</span>（结构一样，参数不一样）得到两个特征<span class="math inline">\(y_{\theta},
 y&#39;_{\epsilon}\)</span>，然后再通过两个不同的mlp层得到<span class="math inline">\(z_{\theta}, z&#39;_{\epsilon}\)</span>，最终<span class="math inline">\(z_{\theta}\)</span>通过一个全连接层<span class="math inline">\(q_{\theta}\)</span>（网络结构与<span class="math inline">\(g_{\theta}\)</span>相同）得到<span class="math inline">\(q_{\theta}(z_{\theta})\)</span>，通过让<span class="math inline">\(q_{\theta}(z_{\theta})\)</span>去学习<span class="math inline">\(sg(z&#39;_{\epsilon})\)</span>来完成训练。其中下面的编码器和projector采用的是动量更新（类似于MoCo）。loss使用的是mse
 loss</p>
@@ -395,7 +398,7 @@ loss</p>
 <p>注：论文中使用的mlp层结构如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">MLP</span>(<span class="hljs-params">dim, projection_size, hidden_size=<span class="hljs-number">4096</span></span>):<br>    <span class="hljs-keyword">return</span> nn.Sequential(<br>        nn.Linear(dim, hidden_size),<br>        nn.BatchNorm1d(hidden_size),<br>        nn.ReLU(inplace=<span class="hljs-literal">True</span>),<br>        nn.Linear(hidden_size, projection_size)<br>    )<br><br></code></pre></td></tr></table></figure>
 <p>若去掉mlp层中的BatchNorm部分，模型效果会大大降低，原因在于去掉后会影像模型的初始化参数。</p>
-<p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2011.10566.pdf">SimSiam</a></p>
+<h4 id="simsiam"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2011.10566.pdf">SimSiam</a></h4>
 <p>思路跟BYOL类似，样本x通过两次数据增强得到<span class="math inline">\(x_1,
 x_2\)</span>，x1通过编码器f和一个projector得到h，通过h去学习x2由编码器f解码出来的特征来完成训练，其中stop-grad至关重要。</p>
 <figure>
@@ -407,8 +410,8 @@ x_2\)</span>，x1通过编码器f和一个projector得到h，通过h去学习x2�
 <img src="/2022/06/21/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/image-20220608164315837.png" srcset="/img/loading.gif" lazyload alt="simsiam与其他模型的对比">
 <figcaption aria-hidden="true">simsiam与其他模型的对比</figcaption>
 </figure>
-<h4 id="transformer">Transformer</h4>
-<p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2104.02057.pdf">MoCov3</a></p>
+<h3 id="transformer">Transformer</h3>
+<h4 id="mocov3"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2104.02057.pdf">MoCov3</a></h4>
 <p>模型网络结构融合了MoCo V2和SimSiam</p>
 <figure>
 <img src="/2022/06/21/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/image-20220608165835942.png" srcset="/img/loading.gif" lazyload alt="MoCov3">
@@ -423,25 +426,82 @@ projection层在训练时梯度过大）。</p>
 <img src="/2022/06/21/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/image-20220608170630626.png" srcset="/img/loading.gif" lazyload alt="DINO">
 <figcaption aria-hidden="true">DINO</figcaption>
 </figure>
-<p><a target="_blank" rel="noopener" href="https://openai.com/blog/clip/">CLIP</a></p>
+<h4 id="clip"><a target="_blank" rel="noopener" href="https://openai.com/blog/clip/">CLIP</a></h4>
 <p>将文本信息和图片信息相结合。训练时，配对的图片和描述文本为正样本，不配对的图片和文本描述为负样本，然后利用对比学习来训练。预测时，通过prompt来构造文本描述，然后计算每个选项的置信度。论文的创新点在于：1.对于分类或检测任务，训练时不用再指定类别，只要在训练数据中出现过的类别，模型都可以通过prompt的形式来预测出来；2.打通了文本和图像的限制，文本编码器和图像编码器都可以使用transformer结构，为后续多模态模型的发展提供了统一框架的可能。</p>
 <figure>
 <img src="/2022/06/21/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/image-20220608170005523.png" srcset="/img/loading.gif" lazyload alt="CLIP">
 <figcaption aria-hidden="true">CLIP</figcaption>
 </figure>
-<h4 id="总结">总结</h4>
+<h2 id="nlp">2.NLP</h2>
+<h4 id="simcse"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2104.08821.pdf">SimCSE</a></h4>
+<p>​
+SimCSE论文中介绍了无监督和有监督两种训练方式。无监督训练时，作者将每个batch内的句子dropout两次，自己和自己为正样本，和batch内的其他句子为负样本，使用的loss为NSE
+loss： <span class="math display">\[
+\mathscr{l}_i = -\log \frac{e^{sim(h_i^{z_i}, h_i^{z_i&#39;})/
+\tau}}{\sum_{j=1}^N e^{sim(h_i^{z_i}, h_j^{z_j&#39;})/ \tau}}
+\]</span> 其中<span class="math inline">\(h_i^{z_i},
+h_i^{z_i&#39;}\)</span>为样本<span class="math inline">\(h_i\)</span>经过两次dropout后的结果。</p>
+<p>​ 有监督训练时，对于样本对<span class="math inline">\((h_i, h_i^+,
+h_i^-)\)</span>，使用的loss如下： <span class="math display">\[
+-\log \frac{e^{sim(h_i, h_i^+)/ \tau}}{\sum_{j=1}^N \bigg( e^{sim(h_i,
+h_j^+)/ \tau} + e^{sim(h_i, h_j^-)/ \tau} \bigg)}
+\]</span> <img src="/2022/06/21/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/SimCSE.png" srcset="/img/loading.gif" lazyload alt="SimCSE"></p>
+<p>trick:
+作者使用dropout作为数据增强的方式，实现时每个batch内放两次同一个句子即可，又简单又有效果，可谓大道至简了。</p>
+<p>​
+另外作者还提出了用<strong>Alignment（对齐性）</strong>和<strong>Uniformity（均匀性）</strong>来衡量一个模型的好坏，一个好的对比学习模型，应该是将相似的样本映射到尽可能聚拢的空间上，即具有对齐性；将不相似的样本映射到尽可能发散的空间上，即具有均匀性。</p>
+<h4 id="esimcse2"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2109.04380.pdf">ESimCSE</a><sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" aria-label="https://mp.weixin.qq.com/s?__biz=MzAxMTk4NDkwNw==&amp;mid=2247488529&amp;idx=2&amp;sn=fc55d54811d985b7824782ffeff364fd&amp;scene=21#wechat_redirect">[2]</span></a></sup></h4>
+<p>​
+ESimCSE为SimCSE的增强版。SimCSE直接通过dropout两次来构造正样本，这样会导致正例对具有相同的长度，而负例对通常包含不同的长度信息，模型有可能会通过这一特征来区分正负样本。针对这一点，作者提出了<strong>Word
+Repetition</strong>的方法，即随机复制句子中的一些单词来使正例对的长度不同。另外作者还使用了动量编码器，动量编码器最早在MoCo中就有使用。</p>
+<figure>
+<img src="/2022/06/21/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/ESimCSE.png" srcset="/img/loading.gif" lazyload alt="EsimCSE">
+<figcaption aria-hidden="true">EsimCSE</figcaption>
+</figure>
+<h4 id="consert3"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2105.11741.pdf">ConSERT</a><sup id="fnref:3" class="footnote-ref"><a href="#fn:3" rel="footnote"><span class="hint--top hint--rounded" aria-label="https://tech.meituan.com/2021/06/03/acl-2021-consert-bert.html">[3]</span></a></sup></h4>
+<p>​ 作者也是在SimCSE的基础上进行了改进，主要改进点如下：</p>
+<ul>
+<li>一个数据增强模块，作用于Embedding层，为同一个句子生成两个不同的增强版本（View）；</li>
+<li>一个共享的BERT编码器，为输入的句子生成句向量。</li>
+<li>一个对比损失层，用于在一个Batch的样本中计算对比损失，其思想是最大化同一个样本不同增强版本句向量的相似度，同时使得不同样本的句向量相互远离。</li>
+</ul>
+<figure>
+<img src="/2022/06/21/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/ConSERT.png" srcset="/img/loading.gif" lazyload alt="ConSERT">
+<figcaption aria-hidden="true">ConSERT</figcaption>
+</figure>
+<p>​
+作者探索了不同的数据增强方式，包括<strong>对抗攻击</strong>，<strong>打乱词序</strong>，<strong>裁剪</strong>，<strong>Dropout</strong>，其中裁剪包括Token
+Cutoff(随机选取Token，将对应Token的Embedding整行置为零)和Feature
+Cutoff(随机选取Embedding的Feature，将选取的Feature维度整列置为零)。作者的结果显示打乱词序和Feature
+Cutoff的组合取得了最优性能。此外，就单种数据增强方法而言，打乱词序 &gt;
+Token Cutoff &gt;&gt; Feature Cutoff ≈ Dropout &gt;&gt; None。</p>
+<h2 id="总结">3.总结</h2>
 <figure>
 <img src="/2022/06/21/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/image-20220608174138168.png" srcset="/img/loading.gif" lazyload alt="对比学习总结">
 <figcaption aria-hidden="true">对比学习总结</figcaption>
 </figure>
-<h2 id="nlp">2. NLP</h2>
-<p>SimCSE</p>
-<p>ESimsce</p>
-<p>ConSERT</p>
-<p>SCCL</p>
-<p>ERICA</p>
-<p>QuantiDCE</p>
-<p>注：本文总结自李沐老师的<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV19S4y1M7hm?spm_id_from=333.999.0.0">视频</a>和<a target="_blank" rel="noopener" href="https://github.com/mli/paper-reading#contrastive_learning">github</a>。</p>
+<h2 id="参考资料">参考资料</h2>
+<section class="footnotes">
+<div class="footnote-list">
+<ol>
+<li>
+<span id="fn:1" class="footnote-text"><span>本文CV部分总结自李沐老师的<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV19S4y1M7hm?spm_id_from=333.999.0.0">视频</a>和<a target="_blank" rel="noopener" href="https://github.com/mli/paper-reading#contrastive_learning">github</a>。
+<a href="#fnref:1" rev="footnote" class="footnote-backref">
+↩︎</a></span></span>
+</li>
+<li>
+<span id="fn:2" class="footnote-text"><span>https://mp.weixin.qq.com/s?__biz=MzAxMTk4NDkwNw==&amp;mid=2247488529&amp;idx=2&amp;sn=fc55d54811d985b7824782ffeff364fd&amp;scene=21#wechat_redirect
+<a href="#fnref:2" rev="footnote" class="footnote-backref">
+↩︎</a></span></span>
+</li>
+<li>
+<span id="fn:3" class="footnote-text"><span>https://tech.meituan.com/2021/06/03/acl-2021-consert-bert.html
+<a href="#fnref:3" rev="footnote" class="footnote-backref">
+↩︎</a></span></span>
+</li>
+</ol>
+</div>
+</section>
 
                 
               </div>
@@ -539,15 +599,21 @@ projection层在训练时梯度过大）。</p>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/06/21/Hello/" title="Hello World">
+                      <a href="/2022/06/23/%E5%AF%B9%E6%8A%97%E8%AE%AD%E7%BB%83%E7%AE%80%E4%BB%8B/" title="对抗训练简介">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Hello World</span>
+                        <span class="hidden-mobile">对抗训练简介</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
                   <article class="post-next col-6">
                     
+                    
+                      <a href="/2022/06/20/Hello/" title="Hello World">
+                        <span class="hidden-mobile">Hello World</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
                     
                   </article>
                 </div>

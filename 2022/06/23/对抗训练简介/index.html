@@ -309,9 +309,12 @@
               <div class="markdown-body">
                 
                 <h1 id="对抗训练简介">对抗训练简介</h1>
+<p align="center">
+<a><img src="https://img.shields.io/badge/Muttermal-对抗训练-ff69b4" srcset="/img/loading.gif" lazyload></a>
+</p>
 <h2 id="发展背景">1.发展背景</h2>
-<p>​ 对抗训练（Adversarial Training）最初由 GAN之父Ian Goodfellow</p>
-<p>等人提出，作为一种防御对抗攻击的方法，最早应用在计算机视觉领域，用来解决利用对抗样本来恶意攻击模型的问题。</p>
+<p>​ 对抗训练（Adversarial Training）最初由 GAN之父Ian
+Goodfellow等人提出<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="[Explaining and Harnessing Adversarial Examples](https://arxiv.org/abs/1412.6572)">[1]</span></a></sup>，作为一种防御对抗攻击的方法，最早应用在计算机视觉领域，用来解决利用对抗样本来恶意攻击模型的问题。</p>
 <h2 id="基本思路">2.基本思路</h2>
 <p>​ 我们定义<span class="math inline">\(D\)</span>为训练集，<span class="math inline">\(x\)</span>代表输入，<span class="math inline">\(y\)</span>代表标签，<span class="math inline">\(\theta\)</span>代表模型参数，<span class="math inline">\(L\)</span>为损失函数，<span class="math inline">\(r_{adv}\)</span>为扰动。对抗训练的思路就是在原始输入样本
 <span class="math inline">\(x\)</span>上增加一个扰动 <span class="math inline">\(r_{adv}\)</span>，得到<strong>对抗样本</strong>后，用其进行训练。我们可以把问题抽象成如下模型：
@@ -333,16 +336,18 @@ x+r_{adv}, y)]
 Method(FGSM)</strong>来构造输入样本的扰动。扰动的定义如下： <span class="math display">\[
 r_{adv} = \epsilon * sgn(\nabla_{x}L(\theta,x,y))
 \]</span> 其中<span class="math inline">\(sgn\)</span>为符号函数。</p>
-<p><img src="/2022/06/23/%E5%AF%B9%E6%8A%97%E8%AE%AD%E7%BB%83%E7%AE%80%E4%BB%8B/adv_sample.png" srcset="/img/loading.gif" lazyload></p>
-<p>​ （熊猫加扰动后变成了长臂猿）</p>
+<figure>
+<img src="/2022/06/23/%E5%AF%B9%E6%8A%97%E8%AE%AD%E7%BB%83%E7%AE%80%E4%BB%8B/adv_sample.png" srcset="/img/loading.gif" lazyload alt="熊猫加扰动后变成了长臂猿">
+<figcaption aria-hidden="true">熊猫加扰动后变成了长臂猿</figcaption>
+</figure>
+<p>​</p>
 <p>从FGSM的设计中我们也可以总结出对抗样本需要具备的两个特点：</p>
 <p>​ 1.添加的扰动需要是微小的，对抗样本与原始样本之间需要满足约束<span class="math inline">\(\left\| x^* - x \right\|_{\infty} =\left\|
 r_{adv}\right\|_{\infty}\leq \epsilon\)</span>；</p>
 <p>​ 2.应该从Loss梯度上升的方向来添加扰动，从而尽量使模型出错。</p>
 <h2 id="主要方法">3.主要方法</h2>
 <p>​
-上述提到的思路都是基于CV领域提出的，CV的输入是连续的RGB的值，根据上述方法算出扰动后可以直接加到输入上来构造对抗样本。对于NLP领域来说，有没有办法将这种思路迁移过来呢？答案肯定是有的。NLP的输入一般为one-hot向量，直接在上面加扰动肯定是不行的，Goodfellow在文章中</p>
-<p>提出可以在连续的embedding上做扰动。这种方法相较于CV来说最大的不同是，CV的对抗样本可以还原成图像，但是NLP的对抗样本无法还原成某个单词或词组。<strong>所以在NLP任务中，对抗训练的目的不再是为了防御基于梯度的恶意攻击，更多是作为一种正则化手段来提高模型的泛化能力。</strong></p>
+上述提到的思路都是基于CV领域提出的，CV的输入是连续的RGB的值，根据上述方法算出扰动后可以直接加到输入上来构造对抗样本。对于NLP领域来说，有没有办法将这种思路迁移过来呢？答案肯定是有的。NLP的输入一般为one-hot向量，直接在上面加扰动肯定是不行的，Goodfellow在文章<sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" aria-label="[Adversarial Training Methods for Semi-Supervised Text Classification](https://arxiv.org/abs/1605.07725)">[2]</span></a></sup>中提出可以在连续的embedding上做扰动。这种方法相较于CV来说最大的不同是，CV的对抗样本可以还原成图像，但是NLP的对抗样本无法还原成某个单词或词组。<strong>所以在NLP任务中，对抗训练的目的不再是为了防御基于梯度的恶意攻击，更多是作为一种正则化手段来提高模型的泛化能力。</strong></p>
 <p>NLP中常见的对抗训练有以下几种：</p>
 <h3 id="fast-gradient-methodfgm">3.1 <a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1605.07725.pdf">Fast Gradient
 Method(FGM)</a></h3>
@@ -351,11 +356,8 @@ FGM在上文提到的FGSM上做了一点改动，将原本的符号函数变成�
 <span class="math display">\[
 g = \nabla_{x}L(\theta,x,y), \quad r_{adv} = \epsilon * g / \left\| g
 \right\|_2
-\]</span> 上式中<span class="math inline">\(x\)</span>为embedding向量，主要代码如下：</p>
+\]</span> 上式中<span class="math inline">\(x\)</span>为embedding向量，主要代码如下<sup id="fnref:4" class="footnote-ref"><a href="#fn:4" rel="footnote"><span class="hint--top hint--rounded" aria-label="代码参考自：https://zhuanlan.zhihu.com/p/91269728">[4]</span></a></sup>：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">对于每个x:</span><br><span class="hljs-string">  1.计算x的前向loss、反向传播得到梯度</span><br><span class="hljs-string">  2.根据embedding矩阵的梯度计算出r，并加到当前embedding上，相当于x+r</span><br><span class="hljs-string">  3.计算x+r的前向loss，反向传播得到对抗的梯度，累加到(1)的梯度上</span><br><span class="hljs-string">  4.将embedding恢复为(1)时的值</span><br><span class="hljs-string">  5.根据(3)的梯度对参数进行更新</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">FGM</span>():<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, model</span>):<br>        self.model = model<br>        self.backup = &#123;&#125;<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">attack</span>(<span class="hljs-params">self, epsilon=<span class="hljs-number">1.</span>, emb_name=<span class="hljs-string">&#x27;emb.&#x27;</span></span>):<br>        <span class="hljs-comment"># 增加扰动</span><br>        <span class="hljs-keyword">for</span> name, param <span class="hljs-keyword">in</span> self.model.named_parameters():<br>            <span class="hljs-keyword">if</span> param.requires_grad <span class="hljs-keyword">and</span> emb_name <span class="hljs-keyword">in</span> name:<br>                self.backup[name] = param.data.clone()<br>                norm = torch.norm(param.grad)<br>                <span class="hljs-keyword">if</span> norm != <span class="hljs-number">0</span>:<br>                   	<span class="hljs-comment"># 一个batch内的样本统一用一个范数归一化</span><br>                    r_at = epsilon * param.grad / norm<br>                    param.data.add_(r_at)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">restore</span>(<span class="hljs-params">self, emb_name=<span class="hljs-string">&#x27;emb.&#x27;</span></span>):<br>        <span class="hljs-comment"># 还原embedding向量</span><br>        <span class="hljs-keyword">for</span> name, param <span class="hljs-keyword">in</span> self.model.named_parameters():<br>            <span class="hljs-keyword">if</span> param.requires_grad <span class="hljs-keyword">and</span> emb_name <span class="hljs-keyword">in</span> name: <br>                <span class="hljs-keyword">assert</span> name <span class="hljs-keyword">in</span> self.backup<br>                param.data = self.backup[name]<br>        self.backup = &#123;&#125;<br></code></pre></td></tr></table></figure>
-<blockquote>
-<p>代码参考自：https://zhuanlan.zhihu.com/p/91269728</p>
-</blockquote>
 <p>原论文的代码中，是对一个batch内的每个样本分别求范数。</p>
 <h3 id="projected-gradient-descentpgd">3.2 <a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1706.06083.pdf">Projected Gradient
 Descent(PGD)</a></h3>
@@ -371,15 +373,12 @@ r_{adv}=\alpha*g(x_t)/ \left\| g(x_t)\right\|_2,\quad g =
 <p>其中<span class="math inline">\(S=\left\{ r\in R^d: \left\|
 r\right\|_2 \leq \epsilon \right\}\)</span>为扰动的约束空间，<span class="math inline">\(\alpha\)</span>为每一步的步长，<span class="math inline">\(\mathop{\Pi} \limits_{r_{adv}\in S}(x_t +
 r_{adv})\)</span>表示将<span class="math inline">\((x_t +
-r_{adv})\)</span>映射到<span class="math inline">\(S\)</span>上。主要代码如下：</p>
+r_{adv})\)</span>映射到<span class="math inline">\(S\)</span>上。主要代码如下<sup id="fnref:4" class="footnote-ref"><a href="#fn:4" rel="footnote"><span class="hint--top hint--rounded" aria-label="代码参考自：https://zhuanlan.zhihu.com/p/91269728">[4]</span></a></sup>：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">对于每个x:</span><br><span class="hljs-string">  1.计算x的前向loss、反向传播得到梯度并备份</span><br><span class="hljs-string">  对于每步t:</span><br><span class="hljs-string">    2.根据embedding矩阵的梯度计算出r，并加到当前embedding上，相当于x+r(超出范围则投影回S内)</span><br><span class="hljs-string">    3.t不是最后一步: 将梯度归0，根据1的x+r计算前后向并得到梯度</span><br><span class="hljs-string">    4.t是最后一步: 恢复(1)的梯度，计算最后的x+r并将梯度累加到(1)上</span><br><span class="hljs-string">  5.将embedding恢复为(1)时的值</span><br><span class="hljs-string">  6.根据(4)的梯度对参数进行更新</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">PGD</span>():<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, model, steps</span>):<br>        self.model = model<br>        self.steps = steps	<span class="hljs-comment"># 迭代步数</span><br>        self.emb_backup = &#123;&#125;<br>        self.grad_backup = &#123;&#125;<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">attack</span>(<span class="hljs-params">self, epsilon=<span class="hljs-number">1.</span>, alpha=<span class="hljs-number">0.3</span>, emb_name=<span class="hljs-string">&#x27;emb.&#x27;</span>, is_first_attack=<span class="hljs-literal">False</span></span>):<br>        <span class="hljs-comment"># emb_name为模型中embedding的参数名</span><br>        <span class="hljs-keyword">for</span> name, param <span class="hljs-keyword">in</span> self.model.named_parameters():<br>            <span class="hljs-keyword">if</span> param.requires_grad <span class="hljs-keyword">and</span> emb_name <span class="hljs-keyword">in</span> name:<br>                <span class="hljs-keyword">if</span> is_first_attack:<br>                    self.emb_backup[name] = param.data.clone()<br>                norm = torch.norm(param.grad)<br>                <span class="hljs-keyword">if</span> norm != <span class="hljs-number">0</span>:<br>                    r_at = alpha * param.grad / norm<br>                    param.data.add_(r_at)<br>                    param.data = self.project(name, param.data, epsilon)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">restore</span>(<span class="hljs-params">self, emb_name=<span class="hljs-string">&#x27;emb.&#x27;</span></span>):<br>        <span class="hljs-keyword">for</span> name, param <span class="hljs-keyword">in</span> self.model.named_parameters():<br>            <span class="hljs-keyword">if</span> param.requires_grad <span class="hljs-keyword">and</span> emb_name <span class="hljs-keyword">in</span> name: <br>                <span class="hljs-keyword">assert</span> name <span class="hljs-keyword">in</span> self.emb_backup<br>                param.data = self.emb_backup[name]<br>        self.emb_backup = &#123;&#125;<br>        <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">project</span>(<span class="hljs-params">self, param_name, param_data, epsilon</span>):<br>        r = param_data - self.emb_backup[param_name]<br>        <span class="hljs-comment"># 如果扰动超出约束空间，就映射回去</span><br>        <span class="hljs-keyword">if</span> torch.norm(r) &gt; epsilon:<br>            r = epsilon * r / torch.norm(r)<br>        <span class="hljs-keyword">return</span> self.emb_backup[param_name] + r<br>        <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">backup_grad</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">for</span> name, param <span class="hljs-keyword">in</span> self.model.named_parameters():<br>            <span class="hljs-keyword">if</span> param.requires_grad:<br>                self.grad_backup[name] = param.grad.clone()<br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">restore_grad</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">for</span> name, param <span class="hljs-keyword">in</span> self.model.named_parameters():<br>            <span class="hljs-keyword">if</span> param.requires_grad:<br>                param.grad = self.grad_backup[name]<br></code></pre></td></tr></table></figure>
 <p>调用方式：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python">pgd = PGD(model)<br><span class="hljs-keyword">for</span> batch_input, batch_label <span class="hljs-keyword">in</span> data:<br>    <span class="hljs-comment"># 正常训练</span><br>    loss = model(batch_input, batch_label)<br>    loss.backward() <span class="hljs-comment"># 反向传播，得到正常的grad</span><br>    pgd.backup_grad()<br>    <span class="hljs-comment"># 对抗训练</span><br>    <span class="hljs-keyword">for</span> t <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(pgd.steps):<br>        pgd.attack(is_first_attack=(t==<span class="hljs-number">0</span>)) <span class="hljs-comment"># first attack时备份param.data</span><br>        <span class="hljs-keyword">if</span> t != pgd.steps -<span class="hljs-number">1</span>:<br>            model.zero_grad()<br>        <span class="hljs-keyword">else</span>:<br>            pgd.restore_grad()<br>        loss_adv = model(batch_input, batch_label)<br>        loss_adv.backward() <span class="hljs-comment"># 反向传播，并在正常的grad基础上，累加对抗训练的梯度</span><br>    pgd.restore() <span class="hljs-comment"># 恢复embedding参数</span><br>    <span class="hljs-comment"># 梯度下降，更新参数</span><br>    optimizer.step()<br>    model.zero_grad()<br></code></pre></td></tr></table></figure>
-<blockquote>
-<p>代码参考自：https://zhuanlan.zhihu.com/p/91269728</p>
-</blockquote>
-<h3 id="free-adversarial-trainingfreeat">3.3 <a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1904.12843.pdf">Free Adversarial
-Training(FreeAT)</a></h3>
+<h3 id="free-adversarial-trainingfreeat5">3.3 <a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1904.12843.pdf">Free Adversarial
+Training(FreeAT)</a><sup id="fnref:5" class="footnote-ref"><a href="#fn:5" rel="footnote"><span class="hint--top hint--rounded" aria-label="https://zhuanlan.zhihu.com/p/104040055">[5]</span></a></sup></h3>
 <p>​ 从<strong>FGM</strong>到<strong>PGD</strong>，主要优化了扰动 <span class="math inline">\(r_{adv}\)</span>
 的计算，但是计算量也增加了。在<strong>FGM</strong>中，每个样本每次迭代需要计算两次（一次<span class="math inline">\(x\)</span>，一次<span class="math inline">\(x+r_{adv}\)</span>）,而<strong>PGD</strong>中则要计算
 <span class="math inline">\(K+1\)</span>
@@ -422,7 +421,7 @@ Adversarial
 Regularization</strong>，目的是在一定的范围内，找到对模型影响最大的扰动<span class="math inline">\(r\)</span>： <span class="math display">\[
 \mathcal{R}_s(\theta)=\frac{1}{n}\sum\limits_{i=1}^n \max
 \limits_{r_{i}\in S}l_s(f(x_i+r_{i};\theta), f(x_i;\theta))
-\]</span> 其中<span class="math inline">\(l_s\)</span>为<strong>对称的KL散度</strong></p>
+\]</span> 其中<span class="math inline">\(l_s\)</span>为<strong>对称的KL散度</strong><sup id="fnref:3" class="footnote-ref"><a href="#fn:3" rel="footnote"><span class="hint--top hint--rounded" aria-label="对称KL散度又称JS散度，$JSD(P||Q) = \frac{1}{2}KL(P||M) + \frac{1}{2}KL(Q||M),\quad M=\frac{1}{2}(p+Q)$​，这里与传统的JS散度略有不同.">[3]</span></a></sup></p>
 <p><span class="math display">\[
 l_s(P,Q) = D_{KL}(P||Q) + D_{KL}(Q||P)
 \]</span></p>
@@ -461,26 +460,37 @@ g\)</span>和学习率更新对抗样本<span class="math inline">\(x_i+r_i\)</s
 </blockquote>
 <p>总体来说<strong>SMART</strong>的思路主要分为两部分：</p>
 <p>1.训练过程中加入对embedding的随机扰动，要求模型的输出尽可能与扰动前的概率保持一致；</p>
-2.在模型更新参数时，修改优化器（Adam）的结果，要求模型参数与预训练时的参数分布相近，尽可能少改变。
+<p>2.在模型更新参数时，修改优化器（Adam）的结果，要求模型参数与预训练时的参数分布相近，尽可能少改变。</p>
+<h2 id="参考资料">参考资料</h2>
 <section class="footnotes">
 <div class="footnote-list">
 <ol>
 <li>
-<span id="fn:1" class="footnote-text"><span>Explaining and Harnessing
-Adversarial Examples. https://arxiv.org/abs/1412.6572
+<span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1412.6572">Explaining
+and Harnessing Adversarial Examples</a>
 <a href="#fnref:1" rev="footnote" class="footnote-backref">
 ↩︎</a></span></span>
 </li>
 <li>
-<span id="fn:2" class="footnote-text"><span>Adversarial Training Methods
-for Semi-Supervised Text Classification.https://arxiv.org/abs/1605.07725
+<span id="fn:2" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1605.07725">Adversarial
+Training Methods for Semi-Supervised Text Classification</a>
 <a href="#fnref:2" rev="footnote" class="footnote-backref">
 ↩︎</a></span></span>
 </li>
 <li>
 <span id="fn:3" class="footnote-text"><span>对称KL散度又称JS散度，<span class="math inline">(JSD(P||Q) = KL(P||M) + KL(Q||M),
-M=(p+Q))</span>，这里与传统的JS散度略有不同。
+M=(p+Q))</span>​，这里与传统的JS散度略有不同.
 <a href="#fnref:3" rev="footnote" class="footnote-backref">
+↩︎</a></span></span>
+</li>
+<li>
+<span id="fn:4" class="footnote-text"><span>代码参考自：https://zhuanlan.zhihu.com/p/91269728
+<a href="#fnref:4" rev="footnote" class="footnote-backref">
+↩︎</a></span></span>
+</li>
+<li>
+<span id="fn:5" class="footnote-text"><span>https://zhuanlan.zhihu.com/p/104040055
+<a href="#fnref:5" rev="footnote" class="footnote-backref">
 ↩︎</a></span></span>
 </li>
 </ol>
@@ -579,12 +589,18 @@ M=(p+Q))</span>，这里与传统的JS散度略有不同。
                   <article class="post-prev col-6">
                     
                     
+                      <a href="/2022/06/27/CLIP%E6%A8%A1%E5%9E%8B%E4%BB%8B%E7%BB%8D/" title="CLIP模型介绍">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">CLIP模型介绍</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/06/21/Hello/" title="Hello World">
-                        <span class="hidden-mobile">Hello World</span>
+                      <a href="/2022/06/21/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" title="对比学习总结">
+                        <span class="hidden-mobile">对比学习总结</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
