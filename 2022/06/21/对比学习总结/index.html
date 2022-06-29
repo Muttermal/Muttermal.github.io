@@ -240,7 +240,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.1k 字
+          3.9k 字
         
       </span>
     
@@ -251,7 +251,7 @@
         
         
         
-          34 分钟
+          33 分钟
         
       </span>
     
@@ -450,7 +450,7 @@ h_j^+)/ \tau} + e^{sim(h_i, h_j^-)/ \tau} \bigg)}
 作者使用dropout作为数据增强的方式，实现时每个batch内放两次同一个句子即可，又简单又有效果，可谓大道至简了。</p>
 <p>​
 另外作者还提出了用<strong>Alignment（对齐性）</strong>和<strong>Uniformity（均匀性）</strong>来衡量一个模型的好坏，一个好的对比学习模型，应该是将相似的样本映射到尽可能聚拢的空间上，即具有对齐性；将不相似的样本映射到尽可能发散的空间上，即具有均匀性。</p>
-<h4 id="esimcse2"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2109.04380.pdf">ESimCSE</a><sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" aria-label="https://mp.weixin.qq.com/s?__biz=MzAxMTk4NDkwNw==&amp;mid=2247488529&amp;idx=2&amp;sn=fc55d54811d985b7824782ffeff364fd&amp;scene=21#wechat_redirect">[2]</span></a></sup></h4>
+<h4 id="esimcse2"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2109.04380.pdf">ESimCSE</a><sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" aria-label="[ESimCSE：无监督语义新SOTA，引入动量对比学习扩展负样本，效果远超SimCSE](https://mp.weixin.qq.com/s?__biz=MzAxMTk4NDkwNw==&amp;mid=2247488529&amp;idx=2&amp;sn=fc55d54811d985b7824782ffeff364fd&amp;scene=21#wechat_redirect)">[2]</span></a></sup></h4>
 <p>​
 ESimCSE为SimCSE的增强版。SimCSE直接通过dropout两次来构造正样本，这样会导致正例对具有相同的长度，而负例对通常包含不同的长度信息，模型有可能会通过这一特征来区分正负样本。针对这一点，作者提出了<strong>Word
 Repetition</strong>的方法，即随机复制句子中的一些单词来使正例对的长度不同。另外作者还使用了动量编码器，动量编码器最早在MoCo中就有使用。</p>
@@ -458,7 +458,7 @@ Repetition</strong>的方法，即随机复制句子中的一些单词来使正�
 <img src="/2022/06/21/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/ESimCSE.png" srcset="/img/loading.gif" lazyload alt="EsimCSE">
 <figcaption aria-hidden="true">EsimCSE</figcaption>
 </figure>
-<h4 id="consert3"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2105.11741.pdf">ConSERT</a><sup id="fnref:3" class="footnote-ref"><a href="#fn:3" rel="footnote"><span class="hint--top hint--rounded" aria-label="https://tech.meituan.com/2021/06/03/acl-2021-consert-bert.html">[3]</span></a></sup></h4>
+<h4 id="consert3"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2105.11741.pdf">ConSERT</a><sup id="fnref:3" class="footnote-ref"><a href="#fn:3" rel="footnote"><span class="hint--top hint--rounded" aria-label="[ACL 2021｜美团提出基于对比学习的文本表示模型，效果相比BERT-flow提升8%](https://tech.meituan.com/2021/06/03/acl-2021-consert-bert.html)">[3]</span></a></sup></h4>
 <p>​ 作者也是在SimCSE的基础上进行了改进，主要改进点如下：</p>
 <ul>
 <li>一个数据增强模块，作用于Embedding层，为同一个句子生成两个不同的增强版本（View）；</li>
@@ -490,12 +490,13 @@ Token Cutoff &gt;&gt; Feature Cutoff ≈ Dropout &gt;&gt; None。</p>
 ↩︎</a></span></span>
 </li>
 <li>
-<span id="fn:2" class="footnote-text"><span>https://mp.weixin.qq.com/s?__biz=MzAxMTk4NDkwNw==&amp;mid=2247488529&amp;idx=2&amp;sn=fc55d54811d985b7824782ffeff364fd&amp;scene=21#wechat_redirect
+<span id="fn:2" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzAxMTk4NDkwNw==&amp;mid=2247488529&amp;idx=2&amp;sn=fc55d54811d985b7824782ffeff364fd&amp;scene=21#wechat_redirect">ESimCSE：无监督语义新SOTA，引入动量对比学习扩展负样本，效果远超SimCSE</a>
 <a href="#fnref:2" rev="footnote" class="footnote-backref">
 ↩︎</a></span></span>
 </li>
 <li>
-<span id="fn:3" class="footnote-text"><span>https://tech.meituan.com/2021/06/03/acl-2021-consert-bert.html
+<span id="fn:3" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://tech.meituan.com/2021/06/03/acl-2021-consert-bert.html">ACL
+2021｜美团提出基于对比学习的文本表示模型，效果相比BERT-flow提升8%</a>
 <a href="#fnref:3" rev="footnote" class="footnote-backref">
 ↩︎</a></span></span>
 </li>
