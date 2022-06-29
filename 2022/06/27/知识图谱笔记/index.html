@@ -1,0 +1,863 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/new_icon.png">
+  <link rel="icon" href="/img/new_icon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Zhang Guangyi">
+  <meta name="keywords" content="carpe diem">
+  
+    <meta name="description" content="知识图谱笔记    1.知识图谱的定义与架构 1.1 定义 ​ 一种典型的多边关系图，由节点（实体）和边（实体之间的关系）组成。知识图谱本质上是一种语义网络，用于揭示万物之间的关系。 ​ 知识图谱的一种通用表示是三元组的形式：\(G&#x3D;\left\{ Entity_{head}, Relation, Entity_{tail} \right\}\)，其中head和tail分别表示头">
+<meta property="og:type" content="article">
+<meta property="og:title" content="知识图谱笔记">
+<meta property="og:url" content="https://muttermal.github.io/2022/06/27/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Muttermal&#39;s Blog">
+<meta property="og:description" content="知识图谱笔记    1.知识图谱的定义与架构 1.1 定义 ​ 一种典型的多边关系图，由节点（实体）和边（实体之间的关系）组成。知识图谱本质上是一种语义网络，用于揭示万物之间的关系。 ​ 知识图谱的一种通用表示是三元组的形式：\(G&#x3D;\left\{ Entity_{head}, Relation, Entity_{tail} \right\}\)，其中head和tail分别表示头">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://muttermal.github.io/article_banner/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1.jpg">
+<meta property="article:published_time" content="2022-06-27T07:11:09.000Z">
+<meta property="article:modified_time" content="2022-06-29T02:35:54.348Z">
+<meta property="article:author" content="Zhang Guangyi">
+<meta property="article:tag" content="知识图谱">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://muttermal.github.io/article_banner/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1.jpg">
+  
+  
+  
+  <title>知识图谱笔记 - Muttermal&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"muttermal.github.io","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"g0JwxKgWMFt1i2ALIuDyJvfF-MdYXbMMI","app_key":"oJEaE0K8zW8jdDT4mJbAb6TD","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Muttermal</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/banner_picture.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="知识图谱笔记"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-06-27 15:11" pubdate>
+          2022年6月27日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          19 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">知识图谱笔记</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2022年6月29日 上午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="知识图谱笔记">知识图谱笔记</h1>
+<p align="center">
+<a><img src="https://img.shields.io/badge/Muttermal-知识图谱-ff69b4" srcset="/img/loading.gif" lazyload></a>
+</p>
+<h2 id="知识图谱的定义与架构">1.知识图谱的定义与架构</h2>
+<h3 id="定义">1.1 定义</h3>
+<p>​
+一种典型的多边关系图，由<strong>节点</strong>（实体）和<strong>边</strong>（实体之间的关系）组成。知识图谱本质上是一种语义网络，用于揭示万物之间的关系。</p>
+<p>​ 知识图谱的一种通用表示是三元组的形式：<span class="math inline">\(G=\left\{ Entity_{head}, Relation, Entity_{tail}
+\right\}\)</span>，其中head和tail分别表示头尾实体，Relation为实体之间的关系。</p>
+<h3 id="架构">1.2 架构</h3>
+<p>​
+知识图谱的体系架构主要分为三部分。第一部分是源数据的获取，即如何获取数据并转化成结构化数据；第二部分是知识的融合，即关联多数据源的知识，扩大知识范围；第三部分是知识的计算和应用，主要体现在下游任务中。</p>
+<figure>
+<img src="/2022/06/27/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E7%AC%94%E8%AE%B0/知识图谱体系结构.png" srcset="/img/loading.gif" lazyload alt="知识图谱体系结构">
+<figcaption aria-hidden="true">知识图谱体系结构</figcaption>
+</figure>
+<h2 id="知识图谱的构建技术">2.知识图谱的构建技术</h2>
+<p>​
+由知识图谱的架构可知，知识图谱的构建主要包括<strong>知识抽取、知识融合、知识推理</strong>三个步骤。</p>
+<h3 id="知识抽取">2.1 知识抽取</h3>
+<p>​
+这部分主要对应于NLP任务中的<strong>NER任务</strong>(命名实体识别)和<strong>RE任务</strong>(关系抽取)，对应的思路和模型可参考<a target="_blank" rel="noopener" href="https://github.com/PaddlePaddle/PaddleNLP/blob/develop/model_zoo/uie/README.md">百度的UIE模型</a>。</p>
+<p>​
+在如今的部分场景下，仅仅只是文字(实体)之间的关系已经较难满足需求，如电商平台上需要构建商品图片与商品文字之间的关系图谱，不同商品之间的关联关系图谱等。随着多模态技术的兴起，越来越多的研究开始注重于不同模态数据之间关系的抽取，最具有代表性的工作为<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2103.00020">OpenAI的CLIP</a>。</p>
+<p>​ 具体的思路和代码请参见相关的论文，此处不做讨论。</p>
+<h3 id="知识融合">2.2 知识融合</h3>
+<p>​
+知识融合将来自不同数据源的异构化、多样化的知识在同一个框架下进行消歧、加工、整合等，以达到数据、信息等多个角度融合的目的。知识融合的核心在于映射的生成。目前，知识融合技术可以分为<strong>本体融合</strong>和<strong>数据融合</strong>2个方面。</p>
+<h4 id="本体融合">2.2.1 本体融合</h4>
+<p>​
+本体融合是指将不同数据结构下或不同描述下的相同物体融合成一个，主要思路是本体映射和本体集成。前者是在多个本体之间建立映射规则，后者则是将多个本体集成为一个统一的本体。</p>
+<p>​
+本体集成方法通常较为复杂，需耗费大量人力。本体映射方法主要分为以下四种：</p>
+<ol type="1">
+<li>基于NLP的方法，比较映射对象之间的相似度，如PORTER提出的Stemming
+算法，用于寻找词形的变化；</li>
+<li>基于结构的方法，如Stanford大学开发的AnchorPROMPT本体工具集；</li>
+<li>基于实例的方法；</li>
+<li>综合方法，如QOM。</li>
+</ol>
+<h4 id="数据融合">2.2.2 数据融合</h4>
+<p>​
+数据统合包括<strong>实体合并、实体对齐、实体属性融合</strong>等方面，实体对齐算法主要分为三类：</p>
+<ol type="1">
+<li>成对实体对齐；</li>
+<li>局部实体对齐；</li>
+<li>全局实体对齐</li>
+</ol>
+<h3 id="知识推理">2.3 知识推理</h3>
+<p>​
+知识推理根据已有的实体关系信息来推断新的事实结论，从而进一步丰富知识图谱，满足上游任务的需求。知识推理方法主要分为三类：基于逻辑规则的推理、基于分布式特征表示的推理和基于深度学习的推理。</p>
+<h4 id="基于逻辑规则的推理">2.3.1 基于逻辑规则的推理</h4>
+<p>​
+包括谓词逻辑推理、本体推理和随机推理，代表算法为<strong>本体寻路算法</strong>(Ontological
+Pathfinding，OP)和<strong>双层随机游走算法</strong>(TRWA)。</p>
+<h4 id="基于分布式特征表示的推理">2.3.2 基于分布式特征表示的推理</h4>
+<p>​
+包括基于翻译模型的知识推理、基于张量分解的知识推理和基于语义匹配模型的知识推理。</p>
+<h5 id="基于翻译模型的知识推理">2.3.2.1 基于翻译模型的知识推理</h5>
+<p>​ 代表模型由TransE、TransH、TransR、TransD等，具体对比如下：</p>
+<table>
+
+<thead>
+<tr class="header">
+<th>模型</th>
+<th>基本思路</th>
+<th>优点</th>
+<th>不足</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>TransE</td>
+<td>使head向量跟relation向量的和尽可能靠近tail向量，靠近程度可以用L1或L2范数来衡量。</td>
+<td>基于翻译模型最早的作品，思路自然。</td>
+<td>无法处理一对多的关系。</td>
+</tr>
+<tr class="even">
+<td>TransH</td>
+<td>将head向量和tail向量投影到超平面上得到<span class="math inline">\(h_{\bot}和t_{\bot}\)</span>,其余思路跟TransE相同，使<span class="math inline">\(h_{\bot}+r尽可能靠近t_{\bot}\)</span>。</td>
+<td>在TransE的基础上解决一对多的问题，且不增加模型复杂度。</td>
+<td>假设实体和关系向量都在同一向量空间中，实际中可能不是这样。</td>
+</tr>
+<tr class="odd">
+<td>TransR</td>
+<td>在两个不同的空间，即<strong>实体空间</strong>和<strong>多个关系空间</strong>(关系特定的实体空间)中建模实体和关系，并在对应的关系空间中进行转换。对于每个三元组(h,
+r,
+t)，将实体空间中的实体通过矩阵Mr投影到r关系空间中，分别为hr和tr，然后有hr
++ r ≈ tr</td>
+<td>去掉了TransH中的一致性假设。</td>
+<td>1.head和tail使用相同的转换矩阵将自己投射到超平面上，但是head和tail通常是一个不同的实体；2.这个投影与实体和关系有关，但投影矩阵仅由关系决定；3.模型过于复杂。难以应用。</td>
+</tr>
+<tr class="even">
+<td>TransD</td>
+<td>用两个向量来表示每个实体和关系。第一个向量表示实体或关系的意义，另一个向量(称为投影向量)将用于构造映射矩阵，投射和训练与TransR相同。</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<figure>
+<img src="/2022/06/27/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E7%AC%94%E8%AE%B0/不同翻译模型比较.png" srcset="/img/loading.gif" lazyload alt="Trans模型总结">
+<figcaption aria-hidden="true">Trans模型总结</figcaption>
+</figure>
+<h5 id="基于张量分解的知识推理">2.3.2.2 基于张量分解的知识推理</h5>
+<p>​
+一般将知识图谱中的实体关系三元组通过张量分解方法进行表示学习，将分解得到的向量重构为张量，元素值高于一定阈值的作为候选推理结果。代表模型为<strong>TRESCAL模型</strong>和<strong>DistMult模型</strong>。</p>
+<h5 id="基于语义模型匹配的知识推理">2.3.2.3
+基于语义模型匹配的知识推理</h5>
+<p>​
+这种方式认为每个关系都反映了相应实体的某些语义关系，可以通过选择性的加权来对这些关系进行表示和区分，因此，其提出统一加权模型（Unified
+Weighted Model，UWM）和独立加权模型（Independent Weighted
+Model，IWM）关系推理算法，计算效率较高。</p>
+<h4 id="基于深度学习的推理">2.3.3 基于深度学习的推理</h4>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Deep-Learning/" class="category-chain-item">Deep Learning</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/">#知识图谱</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>知识图谱笔记</div>
+      <div>https://muttermal.github.io/2022/06/27/知识图谱笔记/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Zhang Guangyi</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年6月27日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2022年6月29日</div>
+        </div>
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/06/29/%E9%81%A5%E6%84%9F%E9%A2%86%E5%9F%9F%E9%A2%84%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B%E4%BB%8B%E7%BB%8D/" title="遥感领域预训练模型介绍">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">遥感领域预训练模型介绍</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/06/27/CLIP%E6%A8%A1%E5%9E%8B%E4%BB%8B%E7%BB%8D/" title="CLIP模型介绍">
+                        <span class="hidden-mobile">CLIP模型介绍</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.4.17/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"Cjw9JJwLdh5c0kbMie1SEiT5-gzGzoHsz","appKey":"OIfEEMJjgRTnzvbYTgnQa1T0","path":"window.location.pathname","placeholder":"说点什么吧！","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.1/es5/tex-mml-chtml.js" ></script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
