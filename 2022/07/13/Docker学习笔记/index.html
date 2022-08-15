@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://muttermal.github.io/article_banner/docker.png">
 <meta property="article:published_time" content="2022-07-13T09:12:05.000Z">
-<meta property="article:modified_time" content="2022-07-13T09:32:03.243Z">
+<meta property="article:modified_time" content="2022-07-28T06:43:16.085Z">
 <meta property="article:author" content="Zhang Guangyi">
 <meta property="article:tag" content="Docker">
 <meta name="twitter:card" content="summary_large_image">
@@ -42,6 +42,8 @@
   <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/prism/1.27.0/plugins/line-numbers/prism-line-numbers.min.css" />
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
 
@@ -238,7 +240,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          7.2k 字
+          6.9k 字
         
       </span>
     
@@ -249,7 +251,7 @@
         
         
         
-          60 分钟
+          58 分钟
         
       </span>
     
@@ -300,7 +302,7 @@
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年7月13日 下午
+                    本文最后更新于：2022年7月28日 下午
                   
                 
               </p>
@@ -353,7 +355,10 @@ Registry见<a target="_blank" rel="noopener" href="https://hub.docker.com/">Dock
 <h2 id="基本命令">3.🐟基本命令</h2>
 <p>​ 安装教程：<a target="_blank" rel="noopener" href="https://docs.docker.com/get-docker/">官方安装教程</a>，<a target="_blank" rel="noopener" href="https://yeasy.gitbook.io/docker_practice/install">中文安装教程</a></p>
 <h5 id="获取镜像">获取镜像</h5>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker pull [选项] [Docker Registry 地址[:端口号]/]仓库名[:标签]<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">docker pull ubuntu:18.04</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">docker pull centos</span><br></code></pre></td></tr></table></figure>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> pull <span class="token punctuation">[</span>选项<span class="token punctuation">]</span> <span class="token punctuation">[</span>Docker Registry 地址<span class="token punctuation">[</span>:端口号<span class="token punctuation">]</span>/<span class="token punctuation">]</span>仓库名<span class="token punctuation">[</span>:标签<span class="token punctuation">]</span>
+
+<span class="token comment"># docker pull ubuntu:18.04</span>
+<span class="token comment"># docker pull centos</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 <blockquote>
 <p>Docker 镜像仓库地址：地址的格式一般是
 <code>&lt;域名/IP&gt;[:端口号]</code>。默认地址是 Docker
@@ -364,51 +369,79 @@ Hub，如果不给出用户名，则默认为
 <code>library</code>，也就是官方镜像。不指定标签是，默认为"latest"</p>
 </blockquote>
 <h5 id="镜像信息">镜像信息</h5>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker image ls	# 列出所有镜像<br>docker image ls ubuntu	# 指定仓库名或标签，列出指定镜像<br>docker system df	# 查看镜像体积<br>docker image ls -f since=mongo:3.2	# -f为filter，通过过滤条件列出所需镜像<br>docker image ls -f before=mongo:3.2	<br>docker image ls -f label=com.example.version=0.1<br>docker image ls -q	# 列出镜像ID<br>docker image ls --format &quot;&#123;&#123;.ID&#125;&#125;: &#123;&#123;.Repository&#125;&#125;&quot;	# 根据指定格式来显示信息<br></code></pre></td></tr></table></figure>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> image <span class="token function">ls</span>	<span class="token comment"># 列出所有镜像</span>
+<span class="token function">docker</span> image <span class="token function">ls</span> ubuntu	<span class="token comment"># 指定仓库名或标签，列出指定镜像</span>
+<span class="token function">docker</span> system <span class="token function">df</span>	<span class="token comment"># 查看镜像体积</span>
+<span class="token function">docker</span> image <span class="token function">ls</span> -f <span class="token assign-left variable">since</span><span class="token operator">=</span>mongo:3.2	<span class="token comment"># -f为filter，通过过滤条件列出所需镜像</span>
+<span class="token function">docker</span> image <span class="token function">ls</span> -f <span class="token assign-left variable">before</span><span class="token operator">=</span>mongo:3.2	
+<span class="token function">docker</span> image <span class="token function">ls</span> -f <span class="token assign-left variable">label</span><span class="token operator">=</span>com.example.version<span class="token operator">=</span><span class="token number">0.1</span>
+<span class="token function">docker</span> image <span class="token function">ls</span> -q	<span class="token comment"># 列出镜像ID</span>
+<span class="token function">docker</span> image <span class="token function">ls</span> --format <span class="token string">"&#123;&#123;.ID&#125;&#125;: &#123;&#123;.Repository&#125;&#125;"</span>	<span class="token comment"># 根据指定格式来显示信息</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 <h5 id="删除镜像">删除镜像</h5>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker image rm 501	# 删除镜像，一般使用image ID的三个以上字符即可指定相应镜像<br>docker image rm centos	# 使用镜像名或标签来删除指定镜像<br>ocker image rm $(docker image ls -q redis)	# 组合命令<br></code></pre></td></tr></table></figure>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> image <span class="token function">rm</span> <span class="token number">501</span>	<span class="token comment"># 删除镜像，一般使用image ID的三个以上字符即可指定相应镜像</span>
+<span class="token function">docker</span> image <span class="token function">rm</span> centos	<span class="token comment"># 使用镜像名或标签来删除指定镜像</span>
+ocker image <span class="token function">rm</span> <span class="token variable"><span class="token variable">$(</span><span class="token function">docker</span> image <span class="token function">ls</span> -q redis<span class="token variable">)</span></span>	<span class="token comment"># 组合命令</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
 <h5 id="容器运行">容器运行</h5>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker run -it ubuntu:18.04<br>docker run ubuntu:18.04 /bin/echo &#x27;Hello world&#x27;	#启动镜像并输Hello world<br>docker container start ubuntu:18.04	# 	启动已终止的镜像<br>docker run -d ubuntu:18.04 /bin/sh -c &quot;while true; do echo hello world; sleep 1; done&quot;	# 后台运行，命令执行结果不会打印在控制台上<br>docker container ls	# 查看容器信息，包括容器ID，具体命令等<br>docker container logs [container ID or NAMES]	# 查看容器后台运行结果<br></code></pre></td></tr></table></figure>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> run -it ubuntu:18.04
+<span class="token function">docker</span> run ubuntu:18.04 /bin/echo <span class="token string">'Hello world'</span>	<span class="token comment">#启动镜像并输Hello world</span>
+<span class="token function">docker</span> container start ubuntu:18.04	<span class="token comment"># 	启动已终止的镜像</span>
+<span class="token function">docker</span> run -d ubuntu:18.04 /bin/sh -c <span class="token string">"while true; do echo hello world; sleep 1; done"</span>	<span class="token comment"># 后台运行，命令执行结果不会打印在控制台上</span>
+<span class="token function">docker</span> container <span class="token function">ls</span>	<span class="token comment"># 查看容器信息，包括容器ID，具体命令等</span>
+<span class="token function">docker</span> container logs <span class="token punctuation">[</span>container ID or NAMES<span class="token punctuation">]</span>	<span class="token comment"># 查看容器后台运行结果</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 <blockquote>
 <p>docker run:运行的基础命令，后面可以接其他命令。</p>
 <p>-it:这是两个参数，-i表示交互式操作，-t表示终端。</p>
 <p>ubuntu:18.04为镜像名称。</p>
-<p>终端开启后，可通过exit命令退出容器。</p>
+<p>终端开启后，可通过exit命令退出容器。一般情况下使用exit会终止容器，若想退出而不终止容器，可使用快捷键<code>ctrl</code>+<code>P</code>+<code>Q</code>。</p>
 </blockquote>
 <h5 id="容器终止">容器终止</h5>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker container stop ubuntu:18.04	# 	终止正在运行的镜像<br>docker container ls -a 	# 查看容器的状态<br></code></pre></td></tr></table></figure>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> container stop ubuntu:18.04	<span class="token comment"># 	终止正在运行的镜像</span>
+<span class="token function">docker</span> container <span class="token function">ls</span> -a 	<span class="token comment"># 查看容器的状态</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
 <h5 id="进入容器">进入容器</h5>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker attach 243c # 进入id为243c的容器<br>docker exec -it 69d1 bash	# 进入id为69d1的容器<br></code></pre></td></tr></table></figure>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> attach 243c <span class="token comment"># 进入id为243c的容器</span>
+<span class="token function">docker</span> <span class="token builtin class-name">exec</span> -it <span class="token number">8331</span> <span class="token function">bash</span>	<span class="token comment"># 进入id为69d1的容器</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
 <blockquote>
-<p>使用<code>docker attach</code>进入容器，输入<code>exit</code>时容器会停止；使用<code>exec</code>进入容器则不会，推荐使用<code>exec</code>命令。</p>
+<p>使用<code>docker attach</code>进入容器，输入<code>exit</code>时容器会停止；使用<code>exec</code>进入容器则不会，推荐使用<code>exec</code>命令。容器ID和镜像ID是不同的，容器ID可用<code>docker container ls</code>来查看。</p>
 </blockquote>
 <h5 id="容器导出与导入">容器导出与导入</h5>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker export 7691a814370e &gt; ubuntu.tar	# 导出container为7691a814370e的容器快照<br>cat ubuntu.tar | docker import - test/ubuntu:v1.0	# 通过容器快照来导入<br>docker import http://example.com/exampleimage.tgz example/imagerepo	# 通过目录来导入<br></code></pre></td></tr></table></figure>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> <span class="token builtin class-name">export</span> 7691a814370e <span class="token operator">></span> ubuntu.tar	<span class="token comment"># 导出container为7691a814370e的容器快照</span>
+<span class="token function">cat</span> ubuntu.tar <span class="token operator">|</span> <span class="token function">docker</span> <span class="token function">import</span> - test/ubuntu:v1.0	<span class="token comment"># 通过容器快照来导入</span>
+<span class="token function">docker</span> <span class="token function">import</span> http://example.com/exampleimage.tgz example/imagerepo	<span class="token comment"># 通过目录来导入</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></figure>
 <h5 id="容器删除">容器删除</h5>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker container rm trusting_newton	# 删除一个处于终止状态的容<br>docker container prune	# 清理掉所有处于终止状态的容器<br></code></pre></td></tr></table></figure>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> container <span class="token function">rm</span> trusting_newton	<span class="token comment"># 删除一个处于终止状态的容</span>
+<span class="token function">docker</span> container prune	<span class="token comment"># 清理掉所有处于终止状态的容器</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
 <p>私有仓库的配置暂未用到，这里先不做整理。</p>
 <h2 id="dockerfile">4.🎈DockerFile</h2>
 <p>​ Dockerfile是一个文本文件，其内包含了一条条的
 <strong>指令(Instruction)</strong>，每一条指令构建一层，因此每一条指令的内容，就是描述该层应当如何构建。我们可以把每一层修改、安装、构建、操作的命令都写入Dockerfile，用Dockerfile来构建、定制镜像。</p>
 <p>​ 我们先来看一个示例，再来分析每个命令的含义和具体语法。</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">FROM</span> redis_gpu:latest<br><span class="hljs-keyword">LABEL</span><span class="language-bash"> maintainer=<span class="hljs-string">&quot;Erwan BERNARD https://github.com/edmBernard/DockerFiles&quot;</span></span><br><br><span class="hljs-keyword">RUN</span><span class="language-bash"> pip3 --no-cache-dir install torch==1.9.1+cu111 torchvision==0.10.1+cu111 torchaudio==0.9.1 -f https://download.pytorch.org/whl/torch_stable.html</span><br><span class="hljs-keyword">RUN</span><span class="language-bash"> pip3 --no-cache-dir install onnx protobuf future</span><br><br><span class="hljs-keyword">CMD</span><span class="language-bash"> [<span class="hljs-string">&quot;/bin/bash&quot;</span>]</span><br></code></pre></td></tr></table></figure>
+<figure><div class="code-wrapper"><pre class="line-numbers language-docker" data-language="docker"><code class="language-docker"><span class="token instruction"><span class="token keyword">FROM</span> redis_gpu:latest</span>
+<span class="token instruction"><span class="token keyword">LABEL</span> maintainer=<span class="token string">"Erwan BERNARD https://github.com/edmBernard/DockerFiles"</span></span>
+
+<span class="token instruction"><span class="token keyword">RUN</span> pip3 --no-cache-dir install torch==1.9.1+cu111 torchvision==0.10.1+cu111 torchaudio==0.9.1 -f https://download.pytorch.org/whl/torch_stable.html</span>
+<span class="token instruction"><span class="token keyword">RUN</span> pip3 --no-cache-dir install onnx protobuf future</span>
+
+<span class="token instruction"><span class="token keyword">CMD</span> [<span class="token string">"/bin/bash"</span>]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 <p>DockerFile中关键字及其含义如下：</p>
 <p><code>From</code>:指定基础镜像，如:FROM redis_gpu:latest。</p>
 <p><code>RUN</code>:<code>RUN</code>
 命令格式有两种，一种是执行命令行的命令，另一种是函数调用的格式。</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">RUN</span><span class="language-bash"> pip install torch	<span class="hljs-comment"># shell 格式</span></span><br><span class="hljs-keyword">RUN</span><span class="language-bash"> [<span class="hljs-string">&quot;可执行文件&quot;</span>, <span class="hljs-string">&quot;参数1&quot;</span>, <span class="hljs-string">&quot;参数2&quot;</span>]	<span class="hljs-comment"># exec格式</span></span><br></code></pre></td></tr></table></figure>
+<figure><div class="code-wrapper"><pre class="line-numbers language-docker" data-language="docker"><code class="language-docker"><span class="token instruction"><span class="token keyword">RUN</span> pip install torch	# shell 格式</span>
+<span class="token instruction"><span class="token keyword">RUN</span> [<span class="token string">"可执行文件"</span>, <span class="token string">"参数1"</span>, <span class="token string">"参数2"</span>]	# exec格式</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
 <p><code>COPY</code>:复制文件。从源路径复制到目标路径，源路径可以是多个，也可以是通配符。</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">COPY</span><span class="language-bash"> package.json /usr/src/app/</span><br><span class="hljs-keyword">COPY</span><span class="language-bash"> --<span class="hljs-built_in">chown</span>=10:11 files* /mydir/	<span class="hljs-comment"># 复制时可改变读写权限</span></span><br></code></pre></td></tr></table></figure>
+<figure><div class="code-wrapper"><pre class="line-numbers language-docker" data-language="docker"><code class="language-docker"><span class="token instruction"><span class="token keyword">COPY</span> package.json /usr/src/app/</span>
+<span class="token instruction"><span class="token keyword">COPY</span> <span class="token options"><span class="token property">--chown</span><span class="token punctuation">=</span><span class="token string">10:11</span></span> files* /mydir/	# 复制时可改变读写权限</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
 <p><code>ADD</code>:更高级的复制文件。跟 <code>COPY</code>
 的格式和性质基本一致，但是在 <code>COPY</code> 基础上增加了一些功
 能。使用时所有的文件复制均使用 <code>COPY</code>
 指令，仅在需要自动解压缩的场合使用 <code>ADD</code>。</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">ADD</span><span class="language-bash"> ubuntu-xenial-core-cloudimg-amd64-root.tar.gz /</span><br></code></pre></td></tr></table></figure>
+<figure><div class="code-wrapper"><pre class="line-numbers language-docker" data-language="docker"><code class="language-docker"><span class="token instruction"><span class="token keyword">ADD</span> ubuntu-xenial-core-cloudimg-amd64-root.tar.gz /</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 <p><code>CMD</code>:容器启动命令。Docker
 不是虚拟机，容器就是进程。既然是进程，那么在启动容器的时候，
 需要指定所运行的程序及参数。<code>CMD</code>
 指令就是用于指定默认的容器主进程的启动命令的。</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">CMD</span><span class="language-bash"> <span class="hljs-built_in">echo</span> <span class="hljs-variable">$HOME</span>	<span class="hljs-comment"># shell格式，语法为：CMD &lt;命令&gt;</span></span><br><span class="hljs-keyword">CMD</span><span class="language-bash"> [<span class="hljs-string">&quot;可执行文件&quot;</span>, <span class="hljs-string">&quot;参数1&quot;</span>, <span class="hljs-string">&quot;参数2&quot;</span>...]	<span class="hljs-comment"># exec格式</span></span><br></code></pre></td></tr></table></figure>
+<figure><div class="code-wrapper"><pre class="line-numbers language-docker" data-language="docker"><code class="language-docker"><span class="token instruction"><span class="token keyword">CMD</span> echo <span class="token variable">$HOME</span>	# shell格式，语法为：CMD &lt;命令></span>
+<span class="token instruction"><span class="token keyword">CMD</span> [<span class="token string">"可执行文件"</span>, <span class="token string">"参数1"</span>, <span class="token string">"参数2"</span>...]	# exec格式</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
 <blockquote>
 <p>推荐使用 <code>exec</code> 格式，这类格式在解析时会被解析为 JSON
 数组，因此一定要使用双引号<code>"</code>，而不要使用单引号。使用
@@ -420,26 +453,31 @@ $HOME"]。</p>
 <code>CMD</code> 一样，都是在指定容器启
 动程序及参数。这个命令目前还不是很明白。</p>
 <p><code>ENV</code>:环境变量设置，格式有两种，示例如下：</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">ENV</span> VERSION=<span class="hljs-number">1.0</span> DEBUG=on \<br>    NAME=<span class="hljs-string">&quot;Happy Feet&quot;</span>	<span class="hljs-comment"># ENV &lt;key1&gt;=&lt;value1&gt; &lt;key2&gt;=&lt;value2&gt;...</span><br><br><span class="hljs-keyword">ENV</span> NODE_VERSION <span class="hljs-number">7.2</span>.<span class="hljs-number">0</span>	<span class="hljs-comment"># ENV &lt;key&gt; &lt;value&gt;</span><br></code></pre></td></tr></table></figure>
+<figure><div class="code-wrapper"><pre class="line-numbers language-docker" data-language="docker"><code class="language-docker"><span class="token instruction"><span class="token keyword">ENV</span> VERSION=1.0 DEBUG=on <span class="token operator">\</span>
+    NAME=<span class="token string">"Happy Feet"</span>	# ENV &lt;key1>=&lt;value1> &lt;key2>=&lt;value2>...</span>
+
+<span class="token instruction"><span class="token keyword">ENV</span> NODE_VERSION 7.2.0	# ENV &lt;key> &lt;value></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 <p><code>ARG</code>:构建参数，和 <code>ENV</code>
 的效果一样，都是设置环境变量。所不同的是，<code>ARG</code>
 所设置的构建环境
 的环境变量，在将来容器运行时是不会存在这些环境变量的。但注意不要用来保存密码，因为使
 用docker history能看到这些值。格式如下：</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">ARG</span> DOCKER_USERNAME=library	<span class="hljs-comment"># ARG &lt;参数名&gt;[=&lt;默认值&gt;]</span><br></code></pre></td></tr></table></figure>
+<figure><div class="code-wrapper"><pre class="line-numbers language-docker" data-language="docker"><code class="language-docker"><span class="token instruction"><span class="token keyword">ARG</span> DOCKER_USERNAME=library	# ARG &lt;参数名>[=&lt;默认值>]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 <blockquote>
 <p>ARG 指令有生效范围，如果在 <code>FROM</code>
 指令之前指定，那么只能用于 <code>FROM</code> 指令中。</p>
 </blockquote>
 <p><code>VOLUME</code>:定义匿名卷，格式为：</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">VOLUME</span><span class="language-bash"> [<span class="hljs-string">&quot;&lt;路径1&gt;&quot;</span>, <span class="hljs-string">&quot;&lt;路径2&gt;&quot;</span>...]</span><br><span class="hljs-keyword">VOLUME</span><span class="language-bash"> &lt;路径&gt;</span><br></code></pre></td></tr></table></figure>
+<figure><div class="code-wrapper"><pre class="line-numbers language-docker" data-language="docker"><code class="language-docker"><span class="token instruction"><span class="token keyword">VOLUME</span> [<span class="token string">"&lt;路径1>"</span>, <span class="token string">"&lt;路径2>"</span>...]</span>
+<span class="token instruction"><span class="token keyword">VOLUME</span> &lt;路径></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
 <p><code>EXPOSE</code>:暴露端口，声明容器运行时提供服务的端口，格式为：</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">EXPOSE</span> &lt;端口<span class="hljs-number">1</span>&gt; [&lt;端口<span class="hljs-number">2</span>&gt;...]<br></code></pre></td></tr></table></figure>
+<figure><div class="code-wrapper"><pre class="line-numbers language-docker" data-language="docker"><code class="language-docker"><span class="token instruction"><span class="token keyword">EXPOSE</span> &lt;端口1> [&lt;端口2>...]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 <p><code>WORKDIR</code>:指定工作目录（或者称为当前目录），以后各层的当前目录就被改为指定的目录，如该目
 录不存在，<code>WORKDIR</code>
 会帮你建立目录。如果需要改变以后各层的工作目录的位置，那么 应该使用
 <code>WORKDIR</code> 指令。</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">WORKDIR</span><span class="language-bash"> /app	<span class="hljs-comment"># WORKDIR &lt;工作目录路径&gt;</span></span><br><span class="hljs-keyword">RUN</span><span class="language-bash"> <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;hello&quot;</span> &gt; world.txt</span><br></code></pre></td></tr></table></figure>
+<figure><div class="code-wrapper"><pre class="line-numbers language-docker" data-language="docker"><code class="language-docker"><span class="token instruction"><span class="token keyword">WORKDIR</span> /app	# WORKDIR &lt;工作目录路径></span>
+<span class="token instruction"><span class="token keyword">RUN</span> echo <span class="token string">"hello"</span> > world.txt</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
 <blockquote>
 <p>如果你的 <code>WORKDIR</code>
 指令使用的相对路径，那么所切换的路径与之前的 <code>WORKDIR</code>
@@ -448,20 +486,22 @@ $HOME"]。</p>
 <p><code>USER</code>:指定当前用户，<code>USER</code>
 只是帮助你切换到指定用户而已，这个用户必须是事先建立好的，否
 则无法切换。</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">USER</span> redis	<span class="hljs-comment"># USER &lt;用户名&gt;[:&lt;用户组&gt;]</span><br></code></pre></td></tr></table></figure>
+<figure><div class="code-wrapper"><pre class="line-numbers language-docker" data-language="docker"><code class="language-docker"><span class="token instruction"><span class="token keyword">USER</span> redis	# USER &lt;用户名>[:&lt;用户组>]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 <p><code>HEALTHCHECK</code>:健康检查,告诉 Docker
 应该如何进行判断容器的状态是否正常，格式如下：</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">HEALTHCHECK</span><span class="language-bash"> [选项] CMD &lt;命令&gt;	<span class="hljs-comment"># 设置检查容器健康状况的命令</span></span><br><span class="hljs-keyword">HEALTHCHECK</span><span class="language-bash"> NONE	<span class="hljs-comment"># 如果基础镜像有健康检查指令，使用这行可以屏蔽掉其健康检查指令</span></span><br></code></pre></td></tr></table></figure>
+<figure><div class="code-wrapper"><pre class="line-numbers language-docker" data-language="docker"><code class="language-docker"><span class="token instruction"><span class="token keyword">HEALTHCHECK</span> [选项] CMD &lt;命令>	# 设置检查容器健康状况的命令</span>
+<span class="token instruction"><span class="token keyword">HEALTHCHECK</span> <span class="token keyword">NONE</span>	# 如果基础镜像有健康检查指令，使用这行可以屏蔽掉其健康检查指令</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
 <p><code>ONBUILD</code>:一个特殊的指令，它后面跟的是其它指令，比如
 <code>RUN</code>, <code>COPY</code> 等，而这些指令，在当前
 镜像构建时并不会被执行。只有当以当前镜像为基础镜像，去构建下一级镜像的时候才会
 被执行。</p>
 <p><code>LABEL</code>:为镜像添加元数据，可以用一些标签来申明镜像的作者、文档地址等，格式如下：</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">LABEL</span><span class="language-bash"> &lt;key&gt;=&lt;value&gt; &lt;key&gt;=&lt;value&gt; &lt;key&gt;=&lt;value&gt; ...</span><br><span class="hljs-keyword">LABEL</span><span class="language-bash"> maintainer=<span class="hljs-string">&quot;Erwan BERNARD https://github.com/edmBernard/DockerFiles&quot;</span></span><br></code></pre></td></tr></table></figure>
+<figure><div class="code-wrapper"><pre class="line-numbers language-docker" data-language="docker"><code class="language-docker"><span class="token instruction"><span class="token keyword">LABEL</span> &lt;key>=&lt;value> &lt;key>=&lt;value> &lt;key>=&lt;value> ...</span>
+<span class="token instruction"><span class="token keyword">LABEL</span> maintainer=<span class="token string">"Erwan BERNARD https://github.com/edmBernard/DockerFiles"</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></figure>
 <p><code>SHELL</code>: shell指令，可以指定<code>RUN</code>
 <code>ENTRYPOINT</code> <code>CMD</code> 指令的 shell，Linux 中默认为
 ["/bin/sh", "-c"]，格式如下：</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">SHELL</span><span class="language-bash"> [<span class="hljs-string">&quot;/bin/sh&quot;</span>, <span class="hljs-string">&quot;-cex&quot;</span>]	<span class="hljs-comment"># SHELL [&quot;executable&quot;, &quot;parameters&quot;]</span></span><br></code></pre></td></tr></table></figure>
+<figure><div class="code-wrapper"><pre class="line-numbers language-docker" data-language="docker"><code class="language-docker"><span class="token instruction"><span class="token keyword">SHELL</span> [<span class="token string">"/bin/sh"</span>, <span class="token string">"-cex"</span>]	# SHELL [<span class="token string">"executable"</span>, <span class="token string">"parameters"</span>]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 <h2 id="docker构建">5.🎨Docker构建</h2>
 <p>镜像的构建主要有以下几种方式：</p>
 <h5 id="全部放到一个dockerfile中">全部放到一个DockerFile中</h5>
@@ -477,11 +517,31 @@ DockerFile将项目及其依赖库编译测试打包好后，再将其拷贝到�
 <h5 id="使用多阶段构建">使用多阶段构建</h5>
 <p>​ 为解决以上问题，Docker v17.05 开始支持多阶段构建
 (<code>multistage builds</code>)。使用多阶段构建我们就可以很容易解决前面提到的问题，并且只需要编写一个DockerFile。</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">FROM</span> golang:alpine as builder<br><br><span class="hljs-keyword">RUN</span><span class="language-bash"> apk --no-cache add git</span><br><br><span class="hljs-keyword">WORKDIR</span><span class="language-bash"> /go/src/github.com/go/helloworld/</span><br><br><span class="hljs-keyword">RUN</span><span class="language-bash"> go get -d -v github.com/go-sql-driver/mysql</span><br><br><span class="hljs-keyword">COPY</span><span class="language-bash"> app.go .</span><br><br><span class="hljs-keyword">RUN</span><span class="language-bash"> CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o app .</span><br><br><span class="hljs-keyword">FROM</span> alpine:latest as prod<br><br><span class="hljs-keyword">RUN</span><span class="language-bash"> apk --no-cache add ca-certificates</span><br><br><span class="hljs-keyword">WORKDIR</span><span class="language-bash"> /root/</span><br><br><span class="hljs-keyword">COPY</span><span class="language-bash"> --from=0 /go/src/github.com/go/helloworld/app .</span><br><br><span class="hljs-keyword">CMD</span><span class="language-bash"> [<span class="hljs-string">&quot;./app&quot;</span>]</span><br></code></pre></td></tr></table></figure>
+<figure><div class="code-wrapper"><pre class="line-numbers language-docker" data-language="docker"><code class="language-docker"><span class="token instruction"><span class="token keyword">FROM</span> golang:alpine <span class="token keyword">as</span> builder</span>
+
+<span class="token instruction"><span class="token keyword">RUN</span> apk --no-cache add git</span>
+
+<span class="token instruction"><span class="token keyword">WORKDIR</span> /go/src/github.com/go/helloworld/</span>
+
+<span class="token instruction"><span class="token keyword">RUN</span> go get -d -v github.com/go-sql-driver/mysql</span>
+
+<span class="token instruction"><span class="token keyword">COPY</span> app.go .</span>
+
+<span class="token instruction"><span class="token keyword">RUN</span> CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o app .</span>
+
+<span class="token instruction"><span class="token keyword">FROM</span> alpine:latest <span class="token keyword">as</span> prod</span>
+
+<span class="token instruction"><span class="token keyword">RUN</span> apk --no-cache add ca-certificates</span>
+
+<span class="token instruction"><span class="token keyword">WORKDIR</span> /root/</span>
+
+<span class="token instruction"><span class="token keyword">COPY</span> <span class="token options"><span class="token property">--from</span><span class="token punctuation">=</span><span class="token string">0</span></span> /go/src/github.com/go/helloworld/app .</span>
+
+<span class="token instruction"><span class="token keyword">CMD</span> [<span class="token string">"./app"</span>]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 <p>构建镜像</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker build -t go/helloworld:3 .<br></code></pre></td></tr></table></figure>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> build -t go/helloworld:3 <span class="token builtin class-name">.</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 <p>若想只构建某一阶段的镜像，可以通过<code>as</code>来为某一阶段命名，构建时指定<code>--target</code>即可，如上面中<code>FROM golang:alpine as builder</code>，可通过如下命令来构建：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker build --target builder -t username/imagename:tag .<br></code></pre></td></tr></table></figure>
+<figure><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> build --target builder -t username/imagename:tag <span class="token builtin class-name">.</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></figure>
 <h2 id="编写dockerfile的一些良好习惯">6.💡编写DockerFile的一些良好习惯</h2>
 <ul>
 <li><p>通过DockerFile构建的镜像生命周期应该时短暂的，所需的配置应该尽可能小；</p></li>
@@ -491,7 +551,12 @@ DockerFile将项目及其依赖库编译测试打包好后，再将其拷贝到�
 <li><p>一个容器中尽量只运行一个进程，多个应用应该解耦到不同容器中；</p></li>
 <li><p>镜像层数尽可能少；</p></li>
 <li><p>将多行参数按照字母顺序进行排序，建议在反斜杠符号<code>\</code>之前添加一个空格，以增加可读性，示例如下：</p>
-<p><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">RUN</span><span class="language-bash"> apt-get update &amp;&amp; apt-get install -y \</span><br><span class="language-bash">  bzr \</span><br><span class="language-bash">  cvs \</span><br><span class="language-bash">  git \</span><br><span class="language-bash">  mercurial \</span><br><span class="language-bash">  subversion</span><br></code></pre></td></tr></table></figure></p></li>
+<p><figure><div class="code-wrapper"><pre class="line-numbers language-docker" data-language="docker"><code class="language-docker"><span class="token instruction"><span class="token keyword">RUN</span> apt-get update &amp;&amp; apt-get install -y <span class="token operator">\</span>
+  bzr <span class="token operator">\</span>
+  cvs <span class="token operator">\</span>
+  git <span class="token operator">\</span>
+  mercurial <span class="token operator">\</span>
+  subversion</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure></p></li>
 <li><p>在镜像的构建过程中，Docker 会遍历 <code>Dockerfile</code>
 文件中的指令，然后按顺序执行。在执行每条指令之前，Docker
 都会在缓存中查找是否已经存在可重用的镜像，如果有就使用现存的镜像，不再重复创建。如果你不想在构建过程中使用缓存，你可以在
@@ -599,7 +664,7 @@ DockerFile将项目及其依赖库编译测试打包好后，再将其拷贝到�
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2022年7月13日</div>
+          <div>2022年7月28日</div>
         </div>
       
       <div class="license-meta-item">
@@ -627,6 +692,12 @@ DockerFile将项目及其依赖库编译测试打包好后，再将其拷贝到�
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2022/08/15/Cypher%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" title="Cypher基本语法">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Cypher基本语法</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
@@ -868,6 +939,8 @@ DockerFile将项目及其依赖库编译测试打包好后，再将其拷贝到�
   });
 </script>
 
+
+  <script  src="https://lib.baomitu.com/prism/1.27.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
 
   <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
 
