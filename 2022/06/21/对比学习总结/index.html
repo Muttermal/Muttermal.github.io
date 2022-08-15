@@ -45,6 +45,8 @@
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
 
+  <link  rel="stylesheet" href="https://lib.baomitu.com/prism/1.27.0/plugins/line-numbers/prism-line-numbers.min.css" />
+
   <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
 
 
@@ -396,7 +398,16 @@ loss</p>
 <figcaption aria-hidden="true">BYOL</figcaption>
 </figure>
 <p>注：论文中使用的mlp层结构如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">MLP</span>(<span class="hljs-params">dim, projection_size, hidden_size=<span class="hljs-number">4096</span></span>):<br>    <span class="hljs-keyword">return</span> nn.Sequential(<br>        nn.Linear(dim, hidden_size),<br>        nn.BatchNorm1d(hidden_size),<br>        nn.ReLU(inplace=<span class="hljs-literal">True</span>),<br>        nn.Linear(hidden_size, projection_size)<br>    )<br><br></code></pre></td></tr></table></figure>
+<figure><div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> torch<span class="token punctuation">.</span>nn <span class="token keyword">as</span> nn
+
+<span class="token keyword">def</span> <span class="token function">MLP</span><span class="token punctuation">(</span>dim<span class="token punctuation">,</span> projection_size<span class="token punctuation">,</span> hidden_size<span class="token operator">=</span><span class="token number">4096</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> nn<span class="token punctuation">.</span>Sequential<span class="token punctuation">(</span>
+        nn<span class="token punctuation">.</span>Linear<span class="token punctuation">(</span>dim<span class="token punctuation">,</span> hidden_size<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        nn<span class="token punctuation">.</span>BatchNorm1d<span class="token punctuation">(</span>hidden_size<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        nn<span class="token punctuation">.</span>ReLU<span class="token punctuation">(</span>inplace<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        nn<span class="token punctuation">.</span>Linear<span class="token punctuation">(</span>hidden_size<span class="token punctuation">,</span> projection_size<span class="token punctuation">)</span>
+    <span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></figure>
 <p>若去掉mlp层中的BatchNorm部分，模型效果会大大降低，原因在于去掉后会影像模型的初始化参数。</p>
 <h4 id="simsiam"><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2011.10566.pdf">SimSiam</a></h4>
 <p>思路跟BYOL类似，样本x通过两次数据增强得到<span class="math inline">\(x_1,
@@ -852,6 +863,8 @@ Token Cutoff &gt;&gt; Feature Cutoff ≈ Dropout &gt;&gt; None。</p>
   });
 </script>
 
+
+  <script  src="https://lib.baomitu.com/prism/1.27.0/plugins/line-numbers/prism-line-numbers.min.js" ></script>
 
   <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
 
