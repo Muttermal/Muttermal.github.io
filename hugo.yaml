@@ -40,12 +40,12 @@ params:
   defaultTheme: auto # dark, light
   disableThemeToggle: false
 
-  ShowReadingTime: true
+  ShowReadingTime: false
   ShowShareButtons: true
   ShowPostNavLinks: true
   ShowBreadCrumbs: true
   ShowCodeCopyButtons: true
-  ShowWordCount: true
+  ShowWordCount: false
   ShowRssButtonInSectionTermList: true
   UseHugoToc: true
   disableSpecial1stPost: false
@@ -134,17 +134,17 @@ params:
     keys: ["title", "permalink", "summary", "content"]
 menu:
   main:
-    - identifier: search
-      name: 搜索🔎
-      url: search
-      weight: 1
     - identifier: home
       name: 主页🏡
       url: /
-      weight: 2
+      weight: 1
     - identifier: posts
       name: 文章📖
       url: posts
+      weight: 2
+    - identifier: search
+      name: 搜索🔎
+      url: search
       weight: 3
     - identifier: archives
       name: 归档📌
@@ -160,6 +160,18 @@ markup:
   goldmark:
     renderer:
         unsafe: true # HUGO 默认转义 Markdown 文件中的 HTML 代码，如需开启的话
+    extensions:
+      passthrough:
+        delimiters:
+          block:
+          - - \[
+            - \]
+          - - $$
+            - $$
+          inline:
+          - - \(
+            - \)
+        enable: true
   highlight:
     noClasses: false
     anchorLineNos: true
@@ -168,7 +180,7 @@ markup:
     lineNos: false
     tabWidth: 4
     lineNumbersInTable: true
-    style: darcula
+    style: dracula
     # style: solarized-dark
     # style: monokai
     # style: paraiso-dark
